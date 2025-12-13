@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="apriltag_36h11_0">
+    <static>true</static>
+    <link name="tag_link">
+      <!-- Lift slightly to avoid z-fighting if placed on the floor -->
+      <!-- <pose>3.8 0 0.2 0 -1.5708 0</pose> -->
+      <pose> 3.8 0 0.2 1.5708 0 -1.5708</pose>
+      <collision name="col">
+        <geometry>
+          <!-- <box>
+            <size>0.162 0.162 0.001</size>
+          </box> -->
+          <plane>
+            <normal>0 0 1</normal>
+            <size>0.162 0.162</size>
+          </plane>
+        </geometry>
+      </collision>
+
+      <visual name="vis">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>0.162 0.162</size>
+          </plane>
+        </geometry>
+
+        <material>
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/tag36h11_0.png</albedo_map>
+              <roughness>1.0</roughness>
+              <metalness>0.0</metalness>
+            </metal>
+          </pbr>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
+          <emissive>1 1 1 1</emissive>
+          <!-- <double_sided>true</double_sided> -->
+        </material>
+
+        <cast_shadows>false</cast_shadows>
+      </visual>
+    </link>
+  </model>
+</sdf>
