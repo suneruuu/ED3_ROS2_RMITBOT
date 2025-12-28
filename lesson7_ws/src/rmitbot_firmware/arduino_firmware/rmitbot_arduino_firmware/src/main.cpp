@@ -7,14 +7,14 @@
 #include "MyIMU.h"        // Library for the IMU
 #include "MySerial.h"     // Library for the controller
 
-Encoder encoder1(ENC1_A, ENC1_B);                // Create an instance of the Encoder class
-Encoder encoder2(ENC2_A, ENC2_B);                // Create an instance of the Encoder class
-Encoder encoder3(ENC3_A, ENC3_B);                // Create an instance of the Encoder class
-Encoder encoder4(ENC4_A, ENC4_B);                // Create an instance of the Encoder class
-Motor motor1(MOT1_A, MOT1_B, PWM1_A, PWM1_B);    // Create an instance of the Motor class
-Motor motor2(MOT2_A, MOT2_B, PWM2_A, PWM2_B);    // Create an instance of the Motor class
-Motor motor3(MOT3_A, MOT3_B, PWM3_A, PWM3_B);    // Create an instance of the Motor class
-Motor motor4(MOT4_A, MOT4_B, PWM4_A, PWM4_B);    // Create an instance of the Motor class
+Encoder encoder1(ENC1_E, ENC1_F);                // Create an instance of the Encoder class (big back, m1)
+Encoder encoder2(ENC1_A, ENC1_B);                // Create an instance of the Encoder class (big tape, m2)
+Encoder encoder3(ENC1_G, ENC1_H);                // Create an instance of the Encoder class (smol back, m3)
+Encoder encoder4(ENC1_C, ENC1_D);                // Create an instance of the Encoder class (smol tape, m4)
+Motor motor1(MOT1_E, MOT1_F, PWM1_E, PWM1_F);    // Create an instance of the Motor class (big back, m1)
+Motor motor2(MOT1_A, MOT1_B, PWM1_A, PWM1_B);    // Create an instance of the Motor class (big tape, m2)
+Motor motor3(MOT1_G, MOT1_H, PWM1_G, PWM1_H);    // Create an instance of the Motor class (smol back, m3)
+Motor motor4(MOT1_C, MOT1_D, PWM1_C, PWM1_D);    // Create an instance of the Motor class (smol tape, m4)
 Controller controller1(&w1, &MOT1_cmd, &w1_ref); // Create an instance of the Controller class
 Controller controller2(&w2, &MOT2_cmd, &w2_ref); // Create an instance of the Controller class
 Controller controller3(&w3, &MOT3_cmd, &w3_ref); // Create an instance of the Controller class
