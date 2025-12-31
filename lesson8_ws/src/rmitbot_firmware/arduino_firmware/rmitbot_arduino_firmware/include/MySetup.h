@@ -1,38 +1,46 @@
 // ==============================================
 // Pin definitions for the encoders
 // ==============================================
-#define ENC1_A 36 // Pin used on ESP32 for the ENC1_A
-#define ENC1_B 39 // Pin used on ESP32 for the ENC1_B
-#define ENC2_A 35 // Pin used on ESP32 for the ENC2_A
-#define ENC2_B 32 // Pin used on ESP32 for the ENC2_B
-#define ENC3_A 14 // Pin used on ESP32 for the ENC3_A
-#define ENC3_B 13 // Pin used on ESP32 for the ENC3_B
-#define ENC4_A 16 // Pin used on ESP32 for the ENC4_A
-#define ENC4_B  4 // Pin used on ESP32 for the ENC4_B
+#define ENC1_A 27 // Pin used on ESP32 for the ENC1_A
+#define ENC1_B 14 // Pin used on ESP32 for the ENC1_B (big tape), motor 2
+
+#define ENC1_C 18
+#define ENC1_D 4 // smol tape, m4
+
+#define ENC1_E 39
+#define ENC1_F 36 // big back, m1
+
+#define ENC1_G 34
+#define ENC1_H 35 // smol back, m3
 
 // ==============================================
 // Pin definitions for the motors
-// ==============================================
-#define MOT1_A 25 // Pin used on ESP32 for the MOT1_A
-#define MOT1_B 33 // Pin used on ESP32 for the MOT1_B
-#define MOT2_A 19 // Pin used on ESP32 for the MOT2_A
-#define MOT2_B 21 // Pin used on ESP32 for the MOT2_B
-#define MOT3_A 27 // Pin used on ESP32 for the MOT3_A
-#define MOT3_B 26 // Pin used on ESP32 for the MOT3_B
-#define MOT4_A 18 // Pin used on ESP32 for the MOT4_A
-#define MOT4_B 17 // Pin used on ESP32 for the MOT4_B
+// // ==============================================
+#define MOT1_A 13 // Pin used on ESP32 for the MOT1_A
+#define MOT1_B 12 // Pin used on ESP32 for the MOT1_B (big tape), m2
+
+#define MOT1_C 23
+#define MOT1_D 19 // smol tape ,m4
+
+#define MOT1_E 32
+#define MOT1_F 33 // big back, m1
+
+#define MOT1_G 26
+#define MOT1_H 25 // smol back, m3
 
 // ==============================================
 // PWM Channel definitions for the motors
 // ==============================================
 #define PWM1_A 0 // PWM Channel attached to MOT1_A
-#define PWM1_B 1 // PWM Channel attached to MOT1_B
-#define PWM2_A 2 // PWM Channel attached to MOT2_A
-#define PWM2_B 3 // PWM Channel attached to MOT2_B
-#define PWM3_A 4 // PWM Channel attached to MOT3_A
-#define PWM3_B 5 // PWM Channel attached to MOT3_B
-#define PWM4_A 6 // PWM Channel attached to MOT4_A
-#define PWM4_B 7 // PWM Channel attached to MOT4_B
+#define PWM1_B 1 // PWM Channel attached to MOT1_B (big tape)
+
+#define PWM1_C 2
+#define PWM1_D 3 // smol tape
+
+#define PWM1_E 4
+#define PWM1_F 5 // big back
+#define PWM1_G 6
+#define PWM1_H 7 // smol back
 
 // ==============================================
 // IMU Pin definitions
@@ -52,9 +60,9 @@ volatile long EncoderTick1;    // Encoder tick count for encoder 1
 volatile long EncoderTick2;    // Encoder tick count for encoder 2
 volatile long EncoderTick3;    // Encoder tick count for encoder 3
 volatile long EncoderTick4;    // Encoder tick count for encoder 4
-double quat[4]; // Store the quaternion data
-double gyr[3];  // Store the gyro data
-double acc[3];  // Store the accel data
-double quat_calib[4]; // Store the quaternion data
-double gyr_calib[3];  // Store the gyro data
-double acc_calib[3];  // Store the accel data
+double quat[4];                // Store the quaternion data
+double gyr[3];                 // Store the gyro data
+double acc[3];                 // Store the accel data
+double quat_calib[4];          // Store the quaternion data
+double gyr_calib[3];           // Store the gyro data
+double acc_calib[3];           // Store the accel data
