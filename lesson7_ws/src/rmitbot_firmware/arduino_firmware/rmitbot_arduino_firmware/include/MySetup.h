@@ -2,8 +2,8 @@
 // ==============================================
 // Pin definitions for the encoders
 // ==============================================
-#define ENC1_A 34 // Pin used on ESP32 for the ENC1_A
-#define ENC1_B 35 // Pin used on ESP32 for the ENC1_B (big tape), motor 2
+#define ENC1_A 27// Pin used on ESP32 for the ENC1_A
+#define ENC1_B 14 // Pin used on ESP32 for the ENC1_B (big tape), motor 2
 
 #define ENC1_C 18
 #define ENC1_D 4 //smol tape, m4
@@ -11,14 +11,14 @@
 #define ENC1_E 39 
 #define ENC1_F 36 //big back, m1
 
-#define ENC1_G 27
-#define ENC1_H 14 //smol back, m3
+#define ENC1_G 34
+#define ENC1_H 35//smol back, m3
 
 // ==============================================
 // Pin definitions for the motors
 // // ==============================================
-#define MOT1_A 26 // Pin used on ESP32 for the MOT1_A
-#define MOT1_B 25 // Pin used on ESP32 for the MOT1_B (big tape), m2
+#define MOT1_A 13// Pin used on ESP32 for the MOT1_A
+#define MOT1_B 12// Pin used on ESP32 for the MOT1_B (big tape), m2
 
 #define MOT1_C 23
 #define MOT1_D 19 // smol tape ,m4
@@ -26,8 +26,8 @@
 #define MOT1_E 32
 #define MOT1_F 33 // big back, m1
 
-#define MOT1_G 13
-#define MOT1_H 12 // smol back, m3
+#define MOT1_G 26
+#define MOT1_H 25 // smol back, m3
 
 // ==============================================
 // PWM Channel definitions for the motors
