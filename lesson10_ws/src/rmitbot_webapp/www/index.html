@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+    <title>RMITBOT Teleop</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>RMITBOT Control</h1>
+            <span id="connection-status" class="status disconnected">
+                <span class="status-dot"></span>
+                <span class="status-text">Disconnected</span>
+            </span>
+        </header>
+
+        <!-- Camera View -->
+        <div class="camera-section">
+            <img id="camera-stream" src="" alt="Camera Feed">
+            <div id="camera-placeholder" class="camera-placeholder">Camera Offline</div>
+        </div>
+
+        <!-- Control Pad -->
+        <div class="control-section">
+            <div class="control-pad">
+                <button class="control-btn diagonal" data-cmd="forward-left" id="btn-fl">↖</button>
+                <button class="control-btn primary" data-cmd="forward" id="btn-fwd">↑</button>
+                <button class="control-btn diagonal" data-cmd="forward-right" id="btn-fr">↗</button>
+
+                <button class="control-btn secondary" data-cmd="left" id="btn-left">
+                    <span id="left-label">↺</span>
+                </button>
+                <button class="control-btn stop" data-cmd="stop" id="btn-stop">■</button>
+                <button class="control-btn secondary" data-cmd="right" id="btn-right">
+                    <span id="right-label">↻</span>
+                </button>
+
+                <button class="control-btn diagonal" data-cmd="backward-left" id="btn-bl">↙</button>
+                <button class="control-btn primary" data-cmd="backward" id="btn-bwd">↓</button>
+                <button class="control-btn diagonal" data-cmd="backward-right" id="btn-br">↘</button>
+            </div>
+        </div>
+
+        <!-- Mode Toggle -->
+        <div class="mode-section">
+            <div class="mode-toggle">
+                <span class="mode-label" id="mode-normal">Normal</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="mode-switch">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="mode-label" id="mode-holonomic">Holonomic</span>
+            </div>
+            <p class="mode-description" id="mode-description">Left/Right: Rotate</p>
+        </div>
+
+        <!-- Speed Control -->
+        <div class="speed-section">
+            <label class="speed-label">Speed: <span id="speed-value">0.1</span> m/s</label>
+            <input type="range" id="speed-slider" min="0.1" max="1.0" step="0.1" value="0.1" class="speed-slider">
+        </div>
+    </div>
+
+    <!-- Connection Modal -->
+    <div id="connect-modal" class="modal">
+        <div class="modal-content">
+            <h3>Connect to Robot</h3>
+            <input type="text" id="robot-ip" value="localhost" class="ip-input" placeholder="Robot IP Address">
+            <div class="modal-buttons">
+                <button id="modal-cancel" class="modal-btn cancel">Cancel</button>
+                <button id="modal-connect" class="modal-btn connect">Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
