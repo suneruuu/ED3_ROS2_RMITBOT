@@ -1,30 +1,45 @@
 #include <Arduino.h> // Arduino library for basic functions
 
-#include "MySetup.h"      // Pin and variable definitions
-#include "MyEncoder.h"    // Library for the encoder
-#include "MyMotor.h"      // Library for the motor
 #include "MyController.h" // Library for the controller
+#include "MyEncoder.h"    // Library for the encoder
 #include "MyIMU.h"        // Library for the IMU
+#include "MyMotor.h"      // Library for the motor
 #include "MySerial.h"     // Library for the controller
+#include "MySetup.h"      // Pin and variable definitions
 
-Encoder encoder1(ENC1_A, ENC1_B);                // Create an instance of the Encoder class
-Encoder encoder2(ENC2_A, ENC2_B);                // Create an instance of the Encoder class
-Encoder encoder3(ENC3_A, ENC3_B);                // Create an instance of the Encoder class
-Encoder encoder4(ENC4_A, ENC4_B);                // Create an instance of the Encoder class
-Motor motor1(MOT1_A, MOT1_B, PWM1_A, PWM1_B);    // Create an instance of the Motor class
-Motor motor2(MOT2_A, MOT2_B, PWM2_A, PWM2_B);    // Create an instance of the Motor class
-Motor motor3(MOT3_A, MOT3_B, PWM3_A, PWM3_B);    // Create an instance of the Motor class
-Motor motor4(MOT4_A, MOT4_B, PWM4_A, PWM4_B);    // Create an instance of the Motor class
-Controller controller1(&w1, &MOT1_cmd, &w1_ref); // Create an instance of the Controller class
-Controller controller2(&w2, &MOT2_cmd, &w2_ref); // Create an instance of the Controller class
-Controller controller3(&w3, &MOT3_cmd, &w3_ref); // Create an instance of the Controller class
-Controller controller4(&w4, &MOT4_cmd, &w4_ref); // Create an instance of the Controller class
+Encoder
+    encoder1(ENC1_A,
+             ENC1_B); // Create an instance of the Encoder class (big back, m1)
+Encoder
+    encoder2(ENC2_A,
+             ENC2_B); // Create an instance of the Encoder class (big tape, m2)
+Encoder
+    encoder3(ENC3_A,
+             ENC3_B); // Create an instance of the Encoder class (smol back, m3)
+Encoder
+    encoder4(ENC4_A,
+             ENC4_B); // Create an instance of the Encoder class (smol tape, m4)
+Motor motor1(MOT1_A, MOT1_B, PWM1_A,
+             PWM1_B); // Create an instance of the Motor class (big back, m1)
+Motor motor2(MOT2_A, MOT2_B, PWM2_A,
+             PWM2_B); // Create an instance of the Motor class (big tape, m2)
+Motor motor3(MOT3_A, MOT3_B, PWM3_A,
+             PWM3_B); // Create an instance of the Motor class (smol back, m3)
+Motor motor4(MOT4_A, MOT4_B, PWM4_A,
+             PWM4_B); // Create an instance of the Motor class (smol tape, m4)
+Controller controller1(&w1, &MOT1_cmd,
+                       &w1_ref); // Create an instance of the Controller class
+Controller controller2(&w2, &MOT2_cmd,
+                       &w2_ref); // Create an instance of the Controller class
+Controller controller3(&w3, &MOT3_cmd,
+                       &w3_ref); // Create an instance of the Controller class
+Controller controller4(&w4, &MOT4_cmd,
+                       &w4_ref); // Create an instance of the Controller class
 
 //==============================================
 // Arduino Setup
 //==============================================
-void setup()
-{
+void setup() {
   SerialBegin();
   encoder1.begin();    // Initialize the encoder
   encoder2.begin();    // Initialize the encoder
@@ -41,8 +56,7 @@ void setup()
   IMUBegin();          // Initialize the IMU
 }
 
-void loop()
-{
+void loop() {
   w1 = encoder1.getVelocity(); // Get the velocity from the encoder
   w2 = encoder2.getVelocity(); // Get the velocity from the encoder
   w3 = encoder3.getVelocity(); // Get the velocity from the encoder
@@ -57,6 +71,6 @@ void loop()
   motor4.send_pwm(MOT4_cmd);   // Send the PWM command to the motor
   IMUGetData();                // Get the data from the IMU
   // IMUGetData_Uncalibrated();                // Get the data from the IMU
-  SerialDataPrint();           // Print the data to the Serial Monitor
-  SerialDataRead();            // Write the data to the Serial Monitor
+  SerialDataPrint(); // Print the data to the Serial Monitor
+  SerialDataRead();  // Write the data to the Serial Monitor
 }
