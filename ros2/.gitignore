@@ -1,0 +1,31 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Node/Web
+node_modules/
+
+# Editors
+.vscode/
+.idea/
+
+# Databases
+*.db
+*.db-shm
+*.db-wal
+
+# Build
+build/
+dist/
+
+# ROS2
+install/
+log/
+.colcon/
+
