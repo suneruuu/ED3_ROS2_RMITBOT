@@ -56,10 +56,7 @@ def generate_launch_description():
             'mecanum_drive_controller',
             '--param-file', config_controller,
             '--controller-ros-args',
-            '-r', 'mecanum_drive_controller/tf_odometry:=/tf',
-            '-r', 'mecanum_drive_controller/reference:=/cmd_vel',
-            '-r', 'mecanum_drive_controller/odometry:=/odom',
-            '-r', 'mecanum_drive_controller/controller_state:=/controller_state',
+            '--remap mecanum_drive_controller/tf_odometry:=/tf --remap mecanum_drive_controller/reference:=/cmd_vel --remap mecanum_drive_controller/odometry:=/odom --remap mecanum_drive_controller/controller_state:=/controller_state',
         ],
     )
     
