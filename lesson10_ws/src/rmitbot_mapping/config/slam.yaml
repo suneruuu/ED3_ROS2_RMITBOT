@@ -26,9 +26,9 @@ slam_toolbox:
     # map_start_pose: [0.0, 0.0, 0.0]
     #map_start_at_dock: true
 
-    scan_queue_size: 100 // from chatgtp
-    transform_tolerance: 0.3 // from chatgtp
-    transform_timeout: 0.5 // from chatgtp
+    scan_queue_size: 100 # from chatgpt
+    transform_tolerance: 0.3 # from chatgpt
+    transform_timeout: 0.5 # from chatgpt
 
     debug_logging: false
     throttle_scans: 1
