@@ -53,11 +53,13 @@ def generate_launch_description():
         package=    "controller_manager",
         executable= "spawner",
         arguments=[
-            'mecanum_drive_controller','--param-file', config_controller,
-            '--controller-ros-args', '-r mecanum_drive_controller/tf_odometry:=tf',
-            '--controller-ros-args', '-r mecanum_drive_controller/reference:=cmd_vel',
-            '--controller-ros-args', '-r mecanum_drive_controller/odometry:=odom',
-            '--controller-ros-args', '-r mecanum_drive_controller/controller_state:=controller_state',
+            'mecanum_drive_controller',
+            '--param-file', config_controller,
+            '--controller-ros-args',
+            '-r', 'mecanum_drive_controller/tf_odometry:=/tf',
+            '-r', 'mecanum_drive_controller/reference:=/cmd_vel',
+            '-r', 'mecanum_drive_controller/odometry:=/odom',
+            '-r', 'mecanum_drive_controller/controller_state:=/controller_state',
         ],
     )
     
