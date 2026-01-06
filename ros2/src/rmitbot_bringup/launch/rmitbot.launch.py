@@ -153,17 +153,17 @@ def generate_launch_description():
         }.items()
     )
 
-    # Launch vision (AprilTag detection)
-    vision = IncludeLaunchDescription(
-        os.path.join(
-            get_package_share_directory("rmitbot_vision"),
-            "launch",
-            "apriltag.launch.py"
-        ),
-        launch_arguments={
-            "use_sim_time": use_sim_time
-        }.items()
-    )
+    # Launch vision (AprilTag detection) - DISABLED
+    # vision = IncludeLaunchDescription(
+    #     os.path.join(
+    #         get_package_share_directory("rmitbot_vision"),
+    #         "launch",
+    #         "apriltag.launch.py"
+    #     ),
+    #     launch_arguments={
+    #         "use_sim_time": use_sim_time
+    #     }.items()
+    # )
 
     # Launch web interface
     webapp = IncludeLaunchDescription(
@@ -230,8 +230,8 @@ def generate_launch_description():
         # Camera (RPI5 Camera Module 3)
         camera,
 
-        # Vision (AprilTag detection)
-        vision,
+        # Vision (AprilTag detection) - DISABLED
+        # vision,
 
         # Web interface
         webapp,
