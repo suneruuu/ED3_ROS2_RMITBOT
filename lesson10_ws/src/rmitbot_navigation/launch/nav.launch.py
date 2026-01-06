@@ -29,13 +29,20 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.substitutions import FindPackageShare
-from launch.actions import IncludeLaunchDescription, ExecuteProcess, TimerAction
-from launch.substitutions import PathJoinSubstitution
+from launch.actions import IncludeLaunchDescription, ExecuteProcess, TimerAction, DeclareLaunchArgument
+from launch.substitutions import PathJoinSubstitution, LaunchConfiguration
 from launch_ros.actions import Node 
 
 
 def generate_launch_description():
     
+    use_sim_time = LaunchConfiguration('use_sim_time')
+
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='Use simulation (Gazebo) clock if true')
+
     nav_pkg_path = get_package_share_directory("rmitbot_navigation")
     nav_config_file = os.path.join(nav_pkg_path, 'config', 'nav2_params.yaml')
 
@@ -49,7 +56,7 @@ def generate_launch_description():
             ])
         ),
         launch_arguments={
-            'use_sim_time': True,
+            'use_sim_time': use_sim_time,
             'params_file': nav_config_file,
             # 'autostart': 'False',
             # 'use_composition': 'True',
@@ -61,7 +68,7 @@ def generate_launch_description():
         executable= 'planner_server',
         name=       'planner_server',
         output=     'screen',
-        parameters=[{'use_sim_time': False}, nav_config_file]
+        parameters=[{'use_sim_time': use_sim_time}, nav_config_file]
     )
     
     nav2_controller = Node(
@@ -69,7 +76,7 @@ def generate_launch_description():
         executable= 'controller_server',
         name=       'controller_server',
         output=     'screen',
-        parameters=[{'use_sim_time': False}, nav_config_file], 
+        parameters=[{'use_sim_time': use_sim_time}, nav_config_file], 
         remappings=[('/cmd_vel', '/cmd_vel_navigation_unstamped')]
         )
         
@@ -78,7 +85,7 @@ def generate_launch_description():
         executable= 'bt_navigator',
         name=       'bt_navigator',
         output=     'screen',
-        parameters=[{'use_sim_time': False}, nav_config_file]
+        parameters=[{'use_sim_time': use_sim_time}, nav_config_file]
         )
     
     nav2_behavior_server = Node(
@@ -86,7 +93,7 @@ def generate_launch_description():
         executable= 'behavior_server',
         name=       'behavior_server',
         output=     'screen',
-        parameters=[{'use_sim_time': False}, nav_config_file], 
+        parameters=[{'use_sim_time': use_sim_time}, nav_config_file], 
         remappings=[('/cmd_vel', '/cmd_vel_bt_server')]
         )
     
@@ -95,7 +102,7 @@ def generate_launch_description():
         executable= 'smoother_server',
         name=       'smoother_server',
         output=     'screen',
-        parameters=[{'use_sim_time': False}, nav_config_file]
+        parameters=[{'use_sim_time': use_sim_time}, nav_config_file]
     )
     
     nav2_lifecycle_manager = Node(
@@ -104,7 +111,7 @@ def generate_launch_description():
         name=       'lifecycle_manager_navigation',
         output=     'screen',
         parameters=[{
-            'use_sim_time': False,
+            'use_sim_time': use_sim_time,
             'autostart': True,
             'node_names': [
                 'planner_server',
@@ -117,6 +124,7 @@ def generate_launch_description():
         )
     
     return LaunchDescription([
+        declare_use_sim_time_cmd,
         # nav2_launch, 
         nav2_planner, 
         nav2_controller,

@@ -36,10 +36,8 @@ def generate_launch_description():
         os.path.join(pkg_path_mapping, "launch", "mapping.launch.py"),
     )
     
-    # RPI: controller, localization, rplidar, mapping
+    # RPI: controller, rplidar
     return LaunchDescription([
         controller,
-        localization,
         rplidar,
-        mapping,
     ])

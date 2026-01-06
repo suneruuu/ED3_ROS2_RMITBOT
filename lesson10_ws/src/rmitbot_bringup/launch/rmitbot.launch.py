@@ -61,14 +61,11 @@ def generate_launch_description():
         actions=[navigation]
     )
     
-    # PC: display, twistmux, navigation_delayed
-    #RPI: controller, localization, rplidar, mapping
+    # PC: display (rviz), twistmux, mapping (slam), navigation_delayed (nav2)
+    # RPI: controller, rplidar
     return LaunchDescription([
         display,
-        # controller,
         twistmux,
-        # localization,
-        # rplidar, 
-        # mapping, 
+        mapping,
         navigation_delayed, 
     ])
