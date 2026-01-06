@@ -26,6 +26,7 @@ mecanum_drive_controller:
     base_frame_id: "base_footprint"
     odom_frame_id: "odom"
     enable_odom_tf: true
+    publish_rate: 50.0
 
 imu_sensor_broadcaster:
   ros__parameters:
