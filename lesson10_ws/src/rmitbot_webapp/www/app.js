@@ -27,6 +27,7 @@ const state = {
     isConnected: false,
     isHolonomicMode: false,
     currentSpeed: CONFIG.defaultSpeed,
+    angularSpeed: CONFIG.angularSpeed,
     activeCommand: null,
     publishInterval: null,
 };
@@ -36,7 +37,7 @@ const state = {
 // ============================================
 function getVelocityCommand(command) {
     const speed = state.currentSpeed;
-    const angular = CONFIG.angularSpeed;
+    const angular = state.angularSpeed;
 
     // Define commands for both modes
     const commands = {
@@ -125,28 +126,21 @@ function disconnect() {
 function updateConnectionStatus(status) {
     const statusEl = document.getElementById('connection-status');
     const textEl = statusEl.querySelector('.status-text');
-    const connectBtn = document.getElementById('connect-btn');
 
     statusEl.className = 'status ' + status;
 
     switch (status) {
         case 'connected':
             textEl.textContent = 'Connected';
-            connectBtn.textContent = 'Disconnect';
-            connectBtn.classList.add('disconnect');
             break;
         case 'connecting':
             textEl.textContent = 'Connecting...';
             break;
         case 'error':
             textEl.textContent = 'Error';
-            connectBtn.textContent = 'Retry';
-            connectBtn.classList.remove('disconnect');
             break;
         default:
             textEl.textContent = 'Disconnected';
-            connectBtn.textContent = 'Connect';
-            connectBtn.classList.remove('disconnect');
     }
 }
 
@@ -262,6 +256,13 @@ function setupEventListeners() {
     speedSlider.addEventListener('input', () => {
         state.currentSpeed = parseFloat(speedSlider.value);
         document.getElementById('speed-value').textContent = state.currentSpeed.toFixed(1);
+    });
+
+    // Angular speed slider
+    const angularSlider = document.getElementById('angular-slider');
+    angularSlider.addEventListener('input', () => {
+        state.angularSpeed = parseFloat(angularSlider.value);
+        document.getElementById('angular-value').textContent = state.angularSpeed.toFixed(1);
     });
 
     // Control buttons - touch and mouse events
@@ -388,4 +389,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set initial speed display
     document.getElementById('speed-value').textContent = state.currentSpeed.toFixed(1);
+    document.getElementById('angular-value').textContent = state.angularSpeed.toFixed(1);
 });
