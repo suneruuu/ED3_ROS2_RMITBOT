@@ -1,0 +1,4 @@
+# RMITBOT ESP32 (Silicon Labs CP210x UART Bridge)
+# Vendor ID: 10c4, Product ID: ea60
+# Creates symlink /dev/esp32 -> /dev/ttyUSBx
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="esp32", MODE="0666"
