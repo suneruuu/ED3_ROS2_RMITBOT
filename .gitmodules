@@ -1,0 +1,6 @@
+[submodule "lesson10_ws/src/camera_ros"]
+	path = lesson10_ws/src/camera_ros
+	url = https://github.com/christianrauch/camera_ros.git
+[submodule "lesson10_ws/src/libcamera"]
+	path = lesson10_ws/src/libcamera
+	url = https://github.com/raspberrypi/libcamera.git
