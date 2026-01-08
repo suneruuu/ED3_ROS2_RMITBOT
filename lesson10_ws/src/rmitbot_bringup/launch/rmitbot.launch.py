@@ -57,7 +57,7 @@ def generate_launch_description():
     
     # Launch the navigation 10s after slamtoolbox, to make sure that a map is available
     navigation_delayed = TimerAction(
-        period = 5., 
+        period = 20., 
         actions=[navigation]
     )
     
