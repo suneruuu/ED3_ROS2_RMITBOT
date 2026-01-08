@@ -28,7 +28,20 @@ def generate_launch_description():
         name='http_server',
     )
     
+    # Web video server to stream camera feed on port 8080
+    web_video_server = Node(
+        package='web_video_server',
+        executable='web_video_server',
+        name='web_video_server',
+        parameters=[{
+            'port': 8080,
+            'ros_threads': 2,
+        }],
+        output='screen',
+    )
+    
     return LaunchDescription([
         rosbridge_server,
         http_server,
+        web_video_server,
     ])
