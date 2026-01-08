@@ -14,7 +14,7 @@ const CONFIG = {
     publishRate: 50, // ms between velocity publishes
     topicName: '/cmd_vel',
     messageType: 'geometry_msgs/msg/TwistStamped',
-    defaultSpeed: 0.1,
+    defaultSpeed: 0.2,
     angularSpeed: 0.5,
 };
 
