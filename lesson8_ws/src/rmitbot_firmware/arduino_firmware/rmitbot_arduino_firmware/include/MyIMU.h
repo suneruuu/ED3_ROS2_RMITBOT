@@ -8,7 +8,7 @@
 #define I2C_SCL 22 // Pin used on ESP32 for I2C SCL
 
 void IMUBegin();     // Function to initialize the IMU
-void IMUGetData();   // Function to get the data from the IMU
+void IMUGetData();   // Function to  get the data from the IMU
 void IMUGetData_Uncalibrated(); // Function to get the uncalibrated data from the IMU
 void IMUCalibrate(); // Function to calibrate the IMU
 
