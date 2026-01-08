@@ -1,0 +1,8 @@
+# RMITBOT udev rules
+# Creates /dev/rplidar and /dev/esp32 symlinks
+
+# RPLIDAR - USB port 2-1 (Silicon Labs CP210x)
+KERNEL=="ttyUSB*", KERNELS=="2-1:1.0", MODE:="0666", SYMLINK+="rplidar"
+
+# ESP32 - USB port 4-1 (Silicon Labs CP210x - same chip as RPLIDAR, so use port path)
+KERNEL=="ttyUSB*", KERNELS=="4-1:1.0", MODE:="0666", SYMLINK+="esp32"
