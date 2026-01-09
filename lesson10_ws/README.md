@@ -12,6 +12,7 @@ This workspace contains the ROS2 packages for running the RMITBOT with web-based
   - `slam_toolbox`
   - `robot_localization`
   - `ros2_control`
+  - `navigation2`
   - `camera_ros`
 
 ## Build the Workspace
