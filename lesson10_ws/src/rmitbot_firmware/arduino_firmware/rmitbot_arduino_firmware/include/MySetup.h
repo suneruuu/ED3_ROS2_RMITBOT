@@ -25,8 +25,8 @@
 #define MOT3_A 26 // smol back, m3
 #define MOT3_B 25 // smol back, m3
 
-#define MOT4_A 23 // smol tape ,m4
-#define MOT4_B 19 // smol tape ,m4
+#define MOT4_A 19 // smol tape ,m4
+#define MOT4_B 23 // smol tape ,m4
 
 // ==============================================
 // PWM Channel definitions for the motors
