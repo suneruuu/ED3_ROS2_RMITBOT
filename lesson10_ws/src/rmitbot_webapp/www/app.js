@@ -76,7 +76,20 @@ function getVelocityCommand(command) {
 // ============================================
 function connect() {
     const robotIp = document.getElementById('robot-ip').value || CONFIG.defaultRobotIp;
-    const wsUrl = `ws://${robotIp}:${CONFIG.rosbridgePort}`;
+
+    // Use WSS if page is loaded over HTTPS, otherwise use WS
+    const isSecure = window.location.protocol === 'https:';
+    let wsUrl;
+
+    if (isSecure) {
+        // When using HTTPS, connect through the same origin's WebSocket proxy
+        // This requires a reverse proxy (nginx/caddy) to forward /rosbridge to the robot
+        wsUrl = `wss://${window.location.host}/rosbridge`;
+        console.log(`Using secure WebSocket proxy at ${wsUrl}`);
+    } else {
+        // Direct connection when using HTTP
+        wsUrl = `ws://${robotIp}:${CONFIG.rosbridgePort}`;
+    }
 
     console.log(`Connecting to ${wsUrl}...`);
     updateConnectionStatus('connecting');
@@ -356,8 +369,19 @@ function startCameraStream(robotIp) {
     const cameraImg = document.getElementById('camera-stream');
     const placeholder = document.getElementById('camera-placeholder');
 
-    // web_video_server stream URL
-    const streamUrl = `http://${robotIp}:${CONFIG.cameraPort}/stream?topic=${CONFIG.cameraTopic}&type=mjpeg&quality=50`;
+    // Use HTTPS proxy if page is loaded over HTTPS, otherwise direct HTTP
+    const isSecure = window.location.protocol === 'https:';
+    let streamUrl;
+
+    if (isSecure) {
+        // When using HTTPS, connect through the same origin's camera proxy
+        // This requires a reverse proxy (nginx/caddy) to forward /camera to the robot
+        streamUrl = `https://${window.location.host}/camera/stream?topic=${CONFIG.cameraTopic}&type=mjpeg&quality=50`;
+        console.log(`Using secure camera proxy at ${streamUrl}`);
+    } else {
+        // Direct connection when using HTTP
+        streamUrl = `http://${robotIp}:${CONFIG.cameraPort}/stream?topic=${CONFIG.cameraTopic}&type=mjpeg&quality=50`;
+    }
 
     cameraImg.src = streamUrl;
 

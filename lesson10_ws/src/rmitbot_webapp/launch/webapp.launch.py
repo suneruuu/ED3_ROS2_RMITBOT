@@ -10,6 +10,7 @@ def generate_launch_description():
     www_path = os.path.join(pkg_path, 'www')
     
     # Rosbridge WebSocket server on port 9090
+    # Allow CORS from teamb.quykhang.cloud for remote web app access
     rosbridge_server = Node(
         package='rosbridge_server',
         executable='rosbridge_websocket',
@@ -17,6 +18,7 @@ def generate_launch_description():
         parameters=[{
             'port': 9090,
             'use_sim_time': False,
+            'origins': ['https://teamb.quykhang.cloud', 'http://teamb.quykhang.cloud'],
         }],
         output='screen',
     )

@@ -4,4 +4,4 @@
 
 # Option B (Uncomment if Option A is wrong, and comment out Option A)
 KERNEL=="ttyUSB*", KERNELS=="2-1", MODE:="0777", SYMLINK+="rplidar"
-KERNEL=="ttyUSB*", KERNELS=="4-2", MODE:="0777", SYMLINK+="esp32"
+KERNEL=="ttyUSB*", KERNELS=="4-1", MODE:="0777", SYMLINK+="esp32"
