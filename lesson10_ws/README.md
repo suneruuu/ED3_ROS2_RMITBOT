@@ -101,6 +101,14 @@ pkill -f web_video_server
 pkill -f "http.server"
 ```
 
+### Kill All Servers
+
+To stop all ROS2 processes at once:
+
+```bash
+pkill -9 -f "ros2"; pkill -9 -f "rosbridge"; pkill -9 -f "rplidar"
+```
+
 ### Camera Not Streaming
 
 1. Ensure the camera node is running and publishing to `/camera/image_raw`

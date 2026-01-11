@@ -13,4 +13,9 @@ install(DIRECTORY www/
   DESTINATION share/${PROJECT_NAME}/www
 )
 
+# Install scripts
+install(DIRECTORY scripts/
+  DESTINATION share/${PROJECT_NAME}/scripts
+)
+
 ament_package()

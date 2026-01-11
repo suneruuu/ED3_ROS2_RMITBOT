@@ -9,10 +9,10 @@
 const CONFIG = {
     defaultRobotIp: 'localhost',
     rosbridgePort: 9090,
-    cameraPort: 8080,
+    cameraPort: 8081,  // CORS proxy port (forwards to web_video_server on 8080)
     cameraTopic: '/camera/image_raw',
     publishRate: 50, // ms between velocity publishes
-    topicName: '/cmd_vel',
+    topicName: '/cmd_vel_keyboard',
     messageType: 'geometry_msgs/msg/TwistStamped',
     defaultSpeed: 0.2,
     angularSpeed: 0.5,
@@ -88,7 +88,7 @@ function connect() {
         console.log(`Using secure WebSocket proxy at ${wsUrl}`);
     } else {
         // Direct connection when using HTTP
-        wsUrl = `ws://${robotIp}:${CONFIG.rosbridgePort}`;
+        wsUrl = `ws://${robotIp}`;
     }
 
     console.log(`Connecting to ${wsUrl}...`);
@@ -369,20 +369,18 @@ function startCameraStream(robotIp) {
     const cameraImg = document.getElementById('camera-stream');
     const placeholder = document.getElementById('camera-placeholder');
 
-    // Use HTTPS proxy if page is loaded over HTTPS, otherwise direct HTTP
     const isSecure = window.location.protocol === 'https:';
     let streamUrl;
 
     if (isSecure) {
-        // When using HTTPS, connect through the same origin's camera proxy
-        // This requires a reverse proxy (nginx/caddy) to forward /camera to the robot
-        streamUrl = `https://${window.location.host}/camera/stream?topic=${CONFIG.cameraTopic}&type=mjpeg&quality=50`;
-        console.log(`Using secure camera proxy at ${streamUrl}`);
+        // Hardcoded URL for Cloudflare tunnel access
+        streamUrl = 'https://ws.quykhang.cloud/camera/stream?topic=/camera/image_raw';
     } else {
         // Direct connection when using HTTP
-        streamUrl = `http://${robotIp}:${CONFIG.cameraPort}/stream?topic=${CONFIG.cameraTopic}&type=mjpeg&quality=50`;
+        streamUrl = 'http://ws.quykhang.cloud/camera/stream?topic=/camera/image_raw';
     }
 
+    console.log('Camera stream URL:', streamUrl);
     cameraImg.src = streamUrl;
 
     cameraImg.onload = () => {
@@ -390,10 +388,10 @@ function startCameraStream(robotIp) {
         console.log('Camera stream started');
     };
 
-    cameraImg.onerror = () => {
+    cameraImg.onerror = (e) => {
         cameraImg.classList.remove('active');
         placeholder.textContent = 'Camera Offline';
-        console.warn('Camera stream unavailable');
+        console.error('Camera stream failed:', e);
     };
 }
 

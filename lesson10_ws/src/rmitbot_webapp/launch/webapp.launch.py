@@ -30,6 +30,15 @@ def generate_launch_description():
         name='http_server',
     )
     
+    # CORS proxy for camera (proxies 8081 -> 8080 with CORS headers)
+    camera_proxy_script = os.path.join(pkg_path, 'scripts', 'camera_proxy.py')
+    
+    camera_proxy = ExecuteProcess(
+        cmd=['python3', camera_proxy_script],
+        output='screen',
+        name='camera_cors_proxy',
+    )
+    
     # Web video server to stream camera feed on port 8080
     web_video_server = Node(
         package='web_video_server',
@@ -46,4 +55,5 @@ def generate_launch_description():
         rosbridge_server,
         http_server,
         web_video_server,
+        camera_proxy,
     ])
