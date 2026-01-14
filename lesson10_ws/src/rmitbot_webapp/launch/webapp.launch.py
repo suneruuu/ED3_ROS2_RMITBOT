@@ -1,13 +1,21 @@
 import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
-from launch.actions import ExecuteProcess
+from launch.actions import ExecuteProcess, DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     
     pkg_path = get_package_share_directory("rmitbot_webapp")
     www_path = os.path.join(pkg_path, 'www')
+    
+    # Declare launch arguments
+    stepper_port_arg = DeclareLaunchArgument(
+        'stepper_port',
+        default_value='',
+        description='Serial port for stepper motor ESP32 (leave empty for auto-detect)'
+    )
     
     # Rosbridge WebSocket server on port 9090
     # Allow CORS from teamb.quykhang.cloud for remote web app access
@@ -51,9 +59,26 @@ def generate_launch_description():
         output='screen',
     )
     
+    # Stepper motor serial bridge node
+    stepper_bridge_script = os.path.join(pkg_path, 'lib', 'rmitbot_webapp', 'stepper_bridge.py')
+    
+    stepper_bridge = Node(
+        package='rmitbot_webapp',
+        executable='stepper_bridge.py',
+        name='stepper_bridge',
+        parameters=[{
+            'serial_port': LaunchConfiguration('stepper_port'),
+            'baud_rate': 115200,
+            'auto_detect': True,
+        }],
+        output='screen',
+    )
+    
     return LaunchDescription([
+        stepper_port_arg,
         rosbridge_server,
         http_server,
         web_video_server,
         camera_proxy,
+        stepper_bridge,
     ])

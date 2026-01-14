@@ -106,9 +106,11 @@ body {
     height: 100%;
     object-fit: cover;
     display: none;
+    transform: rotate(180deg);
 }
 
-.camera-section img.active {
+.camera-section img.active,
+#camera-stream.active {
     display: block;
 }
 
@@ -118,7 +120,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    color: var(--text-mu    ted);
     font-size: 0.875rem;
 }
 
@@ -396,4 +398,108 @@ body {
 .modal-btn.connect {
     background: var(--primary);
     color: white;
+}
+
+/* Stepper Motor Section */
+.stepper-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space);
+}
+
+.section-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.stepper-controls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.stepper-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-dark);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.stepper-btn:hover {
+    background: var(--border);
+}
+
+.stepper-btn:active,
+.stepper-btn.active {
+    transform: scale(0.95);
+}
+
+.stepper-btn.ccw {
+    border-color: #3b82f6;
+}
+
+.stepper-btn.ccw:hover,
+.stepper-btn.ccw.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.stepper-btn.cw {
+    border-color: #8b5cf6;
+}
+
+.stepper-btn.cw:hover,
+.stepper-btn.cw.active {
+    background: #8b5cf6;
+    border-color: #8b5cf6;
+}
+
+.stepper-btn.hold {
+    border-color: #f59e0b;
+}
+
+.stepper-btn.hold:hover,
+.stepper-btn.hold.active {
+    background: #f59e0b;
+    border-color: #f59e0b;
+}
+
+.stepper-btn.stop {
+    border-color: var(--danger);
+}
+
+.stepper-btn.stop:hover,
+.stepper-btn.stop.active {
+    background: var(--danger);
+    border-color: var(--danger);
+}
+
+.stepper-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+
+.stepper-label {
+    font-size: 0.625rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stepper-status {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 8px;
 }

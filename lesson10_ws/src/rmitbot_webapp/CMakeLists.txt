@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.8)
 project(rmitbot_webapp)
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+
+# Install Python scripts
+install(PROGRAMS
+  scripts/stepper_bridge.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 # Install launch files
 install(DIRECTORY launch/

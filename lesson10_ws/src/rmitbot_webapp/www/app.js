@@ -24,12 +24,14 @@ const CONFIG = {
 const state = {
     ros: null,
     cmdVelPub: null,
+    stepperPub: null,
     isConnected: false,
     isHolonomicMode: false,
     currentSpeed: CONFIG.defaultSpeed,
     angularSpeed: CONFIG.angularSpeed,
     activeCommand: null,
     publishInterval: null,
+    stepperState: 'idle',
 };
 
 // ============================================
@@ -109,7 +111,15 @@ function connect() {
             messageType: CONFIG.messageType,
         });
 
+        // Create stepper motor publisher
+        state.stepperPub = new ROSLIB.Topic({
+            ros: state.ros,
+            name: '/stepper_motor/command',
+            messageType: 'std_msgs/msg/String',
+        });
+
         console.log(`Publishing to ${CONFIG.topicName}`);
+        console.log('Publishing to /stepper_motor/command');
 
         // Start camera stream
         startCameraStream(robotIp);
@@ -402,11 +412,72 @@ function stopCameraStream() {
 }
 
 // ============================================
+// Stepper Motor Control
+// ============================================
+function sendStepperCommand(command) {
+    if (!state.isConnected || !state.stepperPub) {
+        console.warn('Not connected to ROS - cannot send stepper command');
+        return;
+    }
+
+    const msg = new ROSLIB.Message({
+        data: command
+    });
+
+    state.stepperPub.publish(msg);
+    console.log(`Stepper command sent: ${command}`);
+
+    // Update stepper status display
+    updateStepperStatus(command);
+}
+
+function updateStepperStatus(command) {
+    const statusEl = document.getElementById('stepper-status');
+    const statusMap = {
+        'a': 'Stepper: Spinning CCW',
+        'b': 'Stepper: Spinning CW',
+        'c': 'Stepper: Holding Position',
+        'o': 'Stepper: Stopped'
+    };
+    state.stepperState = command;
+    statusEl.textContent = statusMap[command] || 'Stepper: Idle';
+    
+    // Update button active states
+    document.querySelectorAll('.stepper-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    const activeBtn = document.querySelector(`.stepper-btn[data-stepper="${command}"]`);
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+    }
+}
+
+function setupStepperEventListeners() {
+    const stepperButtons = document.querySelectorAll('.stepper-btn');
+    
+    stepperButtons.forEach(btn => {
+        const command = btn.dataset.stepper;
+        
+        btn.addEventListener('click', () => {
+            sendStepperCommand(command);
+        });
+        
+        // Touch events for mobile
+        btn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            sendStepperCommand(command);
+        }, { passive: false });
+    });
+}
+
+// ============================================
 // Initialization
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
     console.log('RMITBOT Teleop Web App initialized');
     setupEventListeners();
+    setupStepperEventListeners();
     updateModeUI();
 
     // Set initial speed display

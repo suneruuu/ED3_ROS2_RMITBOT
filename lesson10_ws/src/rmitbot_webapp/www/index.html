@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>RMITBOT Teleop</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=3">
     <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
 </head>
 
@@ -66,6 +66,30 @@
             <input type="range" id="speed-slider" min="0.1" max="0.5" step="0.05" value="0.2" class="speed-slider">
             <label class="speed-label">Angular: <span id="angular-value">0.5</span> rad/s</label>
             <input type="range" id="angular-slider" min="0.1" max="2.0" step="0.1" value="0.5" class="speed-slider">
+        </div>
+
+        <!-- Stepper Motor Control -->
+        <div class="stepper-section">
+            <h3 class="section-title">Stepper Motor</h3>
+            <div class="stepper-controls">
+                <button class="stepper-btn ccw" id="stepper-ccw" data-stepper="a">
+                    <span class="stepper-icon">↺</span>
+                    <span class="stepper-label">CCW</span>
+                </button>
+                <button class="stepper-btn hold" id="stepper-hold" data-stepper="c">
+                    <span class="stepper-icon">⏸</span>
+                    <span class="stepper-label">Hold</span>
+                </button>
+                <button class="stepper-btn stop" id="stepper-stop" data-stepper="o">
+                    <span class="stepper-icon">■</span>
+                    <span class="stepper-label">Stop</span>
+                </button>
+                <button class="stepper-btn cw" id="stepper-cw" data-stepper="b">
+                    <span class="stepper-icon">↻</span>
+                    <span class="stepper-label">CW</span>
+                </button>
+            </div>
+            <p class="stepper-status" id="stepper-status">Stepper: Idle</p>
         </div>
     </div>
 
